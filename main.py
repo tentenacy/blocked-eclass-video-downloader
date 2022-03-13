@@ -12,8 +12,8 @@ from PyQt5.QtCore import *
 from enum import Enum
 from exceptions import *
 
-base_url_php = "http://cms.kpu.ac.kr/viewer/ssplayer/uniplayer_support/content.php?content_id={}"
-base_url_media = "http://cms.kpu.ac.kr/contents6_pseudo/kpu1000001/{}/contents/media_files/{}"
+base_url_php = "http://cms.tukorea.ac.kr/viewer/ssplayer/uniplayer_support/content.php?content_id={}"
+base_url_media = "http://cms.tukorea.ac.kr/contents{}_pseudo/kpu1000001/{}/contents/media_files/{}"
 
 
 class Status(Enum):
@@ -48,8 +48,13 @@ def download_video(file_name_text, content_id_text, file_loc_text):
             print(full_file_path)
             if os.path.isfile(full_file_path):
                 raise SameFileExists()
-            url_media = base_url_media.format(content_id_text, td.text)
-            urllib.request.urlretrieve(url_media, full_file_path)
+            for i in range(0, 101):
+                try:
+                    url_media = base_url_media.format(i, content_id_text, td.text)
+                    urllib.request.urlretrieve(url_media, full_file_path)
+                    break
+                except Exception:
+                    continue
 
 
 class VideoDownloaderWorker(QThread):
