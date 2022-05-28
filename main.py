@@ -87,8 +87,6 @@ class MyApp(QMainWindow, form_class):
     def __init__(self):
         super().__init__()
 
-        QMessageBox(self).critical(self, '에러발생', lxml.__version__)
-
         self.initUI()
         self.setupUi(self)
         self.setFixedSize(491, 160)
