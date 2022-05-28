@@ -2,7 +2,9 @@ import os.path
 import sys
 import traceback
 import requests
+import lxml
 from bs4 import BeautifulSoup
+
 import urllib.request
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
@@ -40,7 +42,7 @@ def download_video(file_name_text, content_id_text, file_loc_text):
     res = requests.get(url_php)
 
     if res.status_code == 200:
-        soup = BeautifulSoup(res.text, 'lxml')
+        soup = BeautifulSoup(res.text)
         tds = soup.select('story_list > story > main_media_list > main_media')
 
         for idx, td in enumerate(tds):
@@ -76,7 +78,7 @@ class VideoDownloaderWorker(QThread):
         except Exception:
             err = traceback.format_exc()
             print(str(err))
-            self.status.emit(SignalArgs(status=Status.ERR))
+            self.status.emit(SignalArgs(status=Status.ERR, exception=err))
 
         self.status.emit(SignalArgs(status=Status.READY))
 
@@ -84,6 +86,8 @@ class VideoDownloaderWorker(QThread):
 class MyApp(QMainWindow, form_class):
     def __init__(self):
         super().__init__()
+
+        QMessageBox(self).critical(self, '에러발생', lxml.__version__)
 
         self.initUI()
         self.setupUi(self)
