@@ -3,6 +3,8 @@ import sys
 import traceback
 import requests
 import lxml
+import re
+import json
 from bs4 import BeautifulSoup
 
 import urllib.request
@@ -15,7 +17,8 @@ from enum import Enum
 from exceptions import *
 
 base_url_php = "http://cms.tukorea.ac.kr/viewer/ssplayer/uniplayer_support/content.php?content_id={}"
-base_url_media = "http://cms.tukorea.ac.kr/contents{}_pseudo/kpu1000001/{}/contents/media_files/{}"
+base_url_php_media = "http://cms.tukorea.ac.kr/contents{}_pseudo/kpu1000001/{}/contents/media_files/{}"
+base_url_online_view_navi_acl = ""
 
 
 class Status(Enum):
@@ -36,9 +39,9 @@ form_class = uic.loadUiType("myapp.ui")[0]
 
 
 # 화면을 띄우는데 사용되는 Class 선언
-def download_video(file_name_text, content_id_text, file_loc_text):
+def download_video_1(file_name_text, file_loc_text, content_id_text):
     url_php = base_url_php.format(content_id_text)
-    print(url_php)
+    print("url_php: {}".format(url_php))
     res = requests.get(url_php)
 
     if res.status_code == 200:
@@ -52,35 +55,104 @@ def download_video(file_name_text, content_id_text, file_loc_text):
                 raise SameFileExists()
             for i in range(0, 101):
                 try:
-                    url_media = base_url_media.format(i, content_id_text, td.text)
+                    url_media = base_url_php_media.format(i, content_id_text, td.text)
                     urllib.request.urlretrieve(url_media, full_file_path)
-                    break
+                    return True
                 except Exception:
                     continue
+
+    return False
+
+
+def download_video_2(file_name_text, file_loc_text, online_view_navi_response):
+
+    if online_view_navi_response.status_code == 200:
+        full_file_path = file_loc_text + '/' + file_name_text + '.mp4'
+        print(full_file_path)
+        if os.path.isfile(full_file_path):
+            raise SameFileExists()
+        urllib.request.urlretrieve(online_view_navi_response.json()["path"], full_file_path)
+
+        return True
+
+    return False
+
+
+def online_view_form(lecture_weeks_text, item_id_text, jsession_id_text):
+
+    cookies = {'JSESSIONID': jsession_id_text, '_language_': 'ko'}
+
+    response = requests.post('http://eclass.tukorea.ac.kr/ilos/st/course/online_view_form.acl',
+                             data={'lecture_weeks': lecture_weeks_text, 'item_id': item_id_text},
+                             cookies=cookies)
+
+    matched = re.search(r'cv\.load(\((.*?)\));', response.text, re.S)
+
+    params = list(map(lambda str : str.strip().strip("\""), matched.group(2).split(",")))
+
+    return {
+        "navi": params[0],
+        "item_id": params[1],
+        "content_id": params[2],
+        "organization_id": params[3],
+        "lecture_weeks": params[4],
+        "ky": params[5],
+        "ud": params[6],
+    }
+
+
+def online_view_navi(online_view_form_json, jsession_id_text):
+
+    cookies = {'JSESSIONID': jsession_id_text, '_language_': 'ko'}
+
+    return requests.post('http://eclass.tukorea.ac.kr/ilos/st/course/online_view_navi.acl',
+                             data={
+                                 'navi': online_view_form_json["navi"],
+                                 'item_id': online_view_form_json["item_id"],
+                                 'content_id': online_view_form_json["content_id"],
+                                 'organization_id': online_view_form_json["organization_id"],
+                                 'lecture_weeks': online_view_form_json["lecture_weeks"],
+                                 'ky': online_view_form_json["ky"],
+                                 'ud': online_view_form_json["ud"],
+                                 'returnData': "json",
+                                 'encoding': "utf-8"
+                             },
+                             cookies=cookies)
 
 
 class VideoDownloaderWorker(QThread):
     status = pyqtSignal(SignalArgs)
 
-    def __init__(self, parent, file_name_text, content_id_text, file_loc_text):
+    def __init__(self, parent, file_name_text, file_loc_text, lecture_weeks_text, item_id_text, jsession_id_text):
         super().__init__(parent)
 
         self.file_name_text = file_name_text
-        self.content_id_text = content_id_text
         self.file_loc_text = file_loc_text
+        self.lecture_weeks_text = lecture_weeks_text
+        self.item_id_text = item_id_text
+        self.jsession_id_text = jsession_id_text
 
     def run(self):
         self.status.emit(SignalArgs(status=Status.DOWNLOADING))
         try:
-            download_video(file_name_text=self.file_name_text, content_id_text=self.content_id_text, file_loc_text=self.file_loc_text)
+
+            online_view_form_json = online_view_form(self.lecture_weeks_text, self.item_id_text, self.jsession_id_text)
+            online_view_navi_response = online_view_navi(online_view_form_json, self.jsession_id_text)
+
+            if download_video_1(file_name_text=self.file_name_text, file_loc_text=self.file_loc_text, content_id_text=online_view_navi_response.json()["path"].rsplit('/', 1)[-1]):
+                self.status.emit(SignalArgs(status=Status.READY))
+                return
+
+            if download_video_2(file_name_text=self.file_name_text, file_loc_text=self.file_loc_text, online_view_navi_response=online_view_navi_response):
+                self.status.emit(SignalArgs(status=Status.READY))
+                return
+
         except SameFileExists as e:
             self.status.emit(SignalArgs(status=Status.ERR, exception=e))
         except Exception:
             err = traceback.format_exc()
             print(str(err))
             self.status.emit(SignalArgs(status=Status.ERR, exception=err))
-
-        self.status.emit(SignalArgs(status=Status.READY))
 
 
 class MyApp(QMainWindow, form_class):
@@ -89,7 +161,7 @@ class MyApp(QMainWindow, form_class):
 
         self.initUI()
         self.setupUi(self)
-        self.setFixedSize(491, 160)
+        self.setFixedSize(491, 188)
         self.downloadButton.clicked.connect(self.download_btn_clicked)
         self.fileLocationButton.clicked.connect(self.file_location_btn_clicked)
 
@@ -101,37 +173,58 @@ class MyApp(QMainWindow, form_class):
         if signal_args.status is Status.READY:
             self.statusBar().showMessage('준비 완료')
             self.fileNameEdit.setEnabled(True)
-            self.contentIdEdit.setEnabled(True)
             self.fileLocationButton.setEnabled(True)
+            self.lectureWeeksEdit.setEnabled(True)
+            self.itemIdEdit.setEnabled(True)
+            self.jsessionIdEdit.setEnabled(True)
             self.downloadButton.setEnabled(True)
         elif signal_args.status is Status.DOWNLOADING:
             self.statusBar().showMessage('다운로드 중')
             self.fileNameEdit.setEnabled(False)
-            self.contentIdEdit.setEnabled(False)
             self.fileLocationButton.setEnabled(False)
+            self.lectureWeeksEdit.setEnabled(False)
+            self.itemIdEdit.setEnabled(False)
+            self.jsessionIdEdit.setEnabled(False)
             self.downloadButton.setEnabled(False)
         elif signal_args.status is Status.ERR:
             QMessageBox(self).critical(self, '에러 발생', str(signal_args.exception))
+            self.statusBar().showMessage('준비 완료')
+            self.fileNameEdit.setEnabled(True)
+            self.fileLocationButton.setEnabled(True)
+            self.lectureWeeksEdit.setEnabled(True)
+            self.itemIdEdit.setEnabled(True)
+            self.jsessionIdEdit.setEnabled(True)
+            self.downloadButton.setEnabled(True)
 
 
     def download_btn_clicked(self):
         file_name_text = self.fileNameEdit.text()
-        content_id_text = self.contentIdEdit.text()
         file_loc_text = self.fileLocationEdit.text()
+        lecture_weeks_text = self.lectureWeeksEdit.text()
+        item_id_text = self.itemIdEdit.text()
+        jsession_id_text = self.jsessionIdEdit.text()
 
         if file_name_text == '':
             QMessageBox(self).critical(self, '다운로드 할 수 없음', '파일 이름을 입력해주세요.')
-            return
-
-        if content_id_text == '':
-            QMessageBox(self).critical(self, '다운로드 할 수 없음 ', '동영상 ID를 입력해주세요.')
             return
 
         if file_loc_text == '':
             QMessageBox(self).critical(self, '다운로드 할 수 없음 ', '저장 위치를 지정해주세요.')
             return
 
-        th = VideoDownloaderWorker(self, file_name_text, content_id_text, file_loc_text)
+        if lecture_weeks_text == '':
+            QMessageBox(self).critical(self, '다운로드 할 수 없음 ', 'lecture_weeks를 입력해주세요.')
+            return
+
+        if item_id_text == '':
+            QMessageBox(self).critical(self, '다운로드 할 수 없음 ', 'item_id를 입력해주세요.')
+            return
+
+        if jsession_id_text == '':
+            QMessageBox(self).critical(self, '다운로드 할 수 없음 ', 'JSESSIONID를 입력해주세요.')
+            return
+
+        th = VideoDownloaderWorker(self, file_name_text, file_loc_text, lecture_weeks_text, item_id_text, jsession_id_text)
         th.start()
         th.status.connect(self.update_status)
 

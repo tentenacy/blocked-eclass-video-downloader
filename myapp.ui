@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>491</width>
-    <height>160</height>
+    <height>188</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -25,28 +25,31 @@
      <x>10</x>
      <y>10</y>
      <width>471</width>
-     <height>91</height>
+     <height>129</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="fileNameEdit"/>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label">
+    <item row="1" column="2">
+     <widget class="QPushButton" name="fileLocationButton">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="text">
-       <string>파일 이름:</string>
+       <string>...</string>
       </property>
      </widget>
     </item>
     <item row="2" column="0">
-     <widget class="QLabel" name="label_3">
+     <widget class="QLabel" name="label_2">
       <property name="text">
-       <string>저장 위치:</string>
+       <string>lecture_weeks:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
+    <item row="1" column="1">
      <widget class="QLineEdit" name="fileLocationEdit">
       <property name="enabled">
        <bool>true</bool>
@@ -57,32 +60,74 @@
      </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QLabel" name="label_2">
+     <widget class="QLabel" name="label_3">
       <property name="text">
-       <string>동영상 ID:</string>
+       <string>저장 위치:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
     </item>
-    <item row="2" column="2">
-     <widget class="QPushButton" name="fileLocationButton">
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>JSESSIONID:</string>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="fileNameEdit"/>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>파일 이름:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="jsessionIdEdit">
       <property name="enabled">
        <bool>true</bool>
       </property>
-      <property name="text">
-       <string>...</string>
+      <property name="readOnly">
+       <bool>false</bool>
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="contentIdEdit"/>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="lectureWeeksEdit"/>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>item_id:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="itemIdEdit"/>
     </item>
    </layout>
   </widget>
   <widget class="QPushButton" name="downloadButton">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>120</y>
+     <x>200</x>
+     <y>150</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -95,7 +140,7 @@
    <property name="geometry">
     <rect>
      <x>430</x>
-     <y>140</y>
+     <y>170</y>
      <width>56</width>
      <height>12</height>
     </rect>
