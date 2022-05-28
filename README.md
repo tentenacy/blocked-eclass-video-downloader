@@ -31,8 +31,6 @@
 
    (Network 화면이 안 보일 시 ctrl+R)
 
-    - Response에서 path로 넘어가면 동영상 강의를 다운로드할 수 있지만 일부 강의에서는 다운로드가 막혀 있기 때문에 수동으로 하는 거보다는 프로그램을 사용하기를 권장
-
    ![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c9208553-47a2-41eb-952b-bdb27824a0a8/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T192911Z&X-Amz-Expires=86400&X-Amz-Signature=e04c79f3c11ab0cd9ebd8a0bb94dfba6848fddeb611cd077ffead84887bac4b3&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
 
