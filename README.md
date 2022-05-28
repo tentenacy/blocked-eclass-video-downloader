@@ -25,7 +25,7 @@
 
 1. 개발자 도구(F12 or ctrl+shift+I or 직접) > Storage > Cookies 하위 항목 선택 후 JSESSIONID 확인
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/904ef682-bd1f-4c98-9d3c-3a51bc667b89/Untitled.png)
+![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/904ef682-bd1f-4c98-9d3c-3a51bc667b89/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T191626Z&X-Amz-Expires=86400&X-Amz-Signature=c9ea4228fc65f4202e6e76ac920e5d3f53c5e7a784d0069ca1e77c6e2ab42961&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
 2. 개발자 도구(F12 or ctrl+shift+I or 직접) > Network > Filter > online_view_navi.acl 입력 후 Response에서 lecture_weeks,  item_id 확인
 
@@ -33,12 +33,12 @@
 
     - Response에서 path로 넘어가면 동영상 강의를 다운로드할 수 있지만 일부 강의에서는 다운로드가 막혀 있기 때문에 수동으로 하는 거보다는 프로그램을 사용하기를 권장
 
-   ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a95d9b9b-ea49-4014-af14-c2fc0624d055/Untitled.png)
+   ![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a95d9b9b-ea49-4014-af14-c2fc0624d055/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T191516Z&X-Amz-Expires=86400&X-Amz-Signature=bf387a5d6db4b846cc9ac2d8ab2ad438042312575465b37451f894c367e26333&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
 
 3. 프로그램에 파일 이름, 저장 위치, lecture_weeks, item_id, JSESSIONID를 입력하고 다운로드
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/02588ae2-4e5d-40c7-8423-884a640868ff/Untitled.png)
+![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/02588ae2-4e5d-40c7-8423-884a640868ff/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T191638Z&X-Amz-Expires=86400&X-Amz-Signature=759148ee23bed25477268020c0241446e5c6d50e60d67791d35c80d91fb5b197&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
 ## 유의사항
 
