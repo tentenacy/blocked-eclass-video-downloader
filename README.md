@@ -9,7 +9,7 @@
 
 ## 사용법
 
-1. 개발자 도구(F12 or ctrl+shift+I or 직접) > Network > Search > content_id 입력
+1. 개발자 도구(F12 or ctrl+shift+I or 직접) > Network > Search > content_id 혹은 cid 입력
 
    (Network 화면이 안 보일 시 ctrl+R)
 
@@ -17,7 +17,7 @@
 
 
 
-2. 프로그램에 파일 이름, 동영상 ID(content_id), 저장 위치를 입력하고 다운로드
+2. 프로그램에 파일 이름, 동영상 ID(content_id 혹은 cid), 저장 위치를 입력하고 다운로드
 
    ![image](https://user-images.githubusercontent.com/76826021/144158105-582c7a13-0fe0-46f7-81da-4989a5b50cb0.png)
 
