@@ -18,7 +18,6 @@ from exceptions import *
 
 base_url_php = "http://cms.tukorea.ac.kr/viewer/ssplayer/uniplayer_support/content.php?content_id={}"
 base_url_php_media = "http://cms.tukorea.ac.kr/contents{}_pseudo/kpu1000001/{}/contents/media_files/{}"
-base_url_online_view_navi_acl = ""
 
 
 class Status(Enum):
@@ -38,8 +37,8 @@ class SignalArgs:
 form_class = uic.loadUiType("myapp.ui")[0]
 
 
-# 화면을 띄우는데 사용되는 Class 선언
 def download_video_1(file_name_text, file_loc_text, content_id_text):
+    downloaded = False
     url_php = base_url_php.format(content_id_text)
     print("url_php: {}".format(url_php))
     res = requests.get(url_php)
@@ -55,16 +54,47 @@ def download_video_1(file_name_text, file_loc_text, content_id_text):
                 raise SameFileExists()
             for i in range(0, 101):
                 try:
+                    if i == 0:
+                        url_media = base_url_php_media.format('', content_id_text, td.text)
+                        urllib.request.urlretrieve(url_media, full_file_path)
+                        downloaded = True
+
                     url_media = base_url_php_media.format(i, content_id_text, td.text)
                     urllib.request.urlretrieve(url_media, full_file_path)
-                    return True
+                    downloaded = True
+                    break
                 except Exception:
                     continue
 
-    return False
+    return downloaded
 
 
-def download_video_2(file_name_text, file_loc_text, online_view_navi_response):
+def download_video_2(file_name_text, file_loc_text, content_id_text):
+    downloaded = False
+    url_php = base_url_php.format(content_id_text)
+    print("url_php: {}".format(url_php))
+    res = requests.get(url_php)
+
+    if res.status_code == 200:
+        soup = BeautifulSoup(res.text)
+        tds = soup.select('main_media > desktop > flash_fallback > media_uri')
+
+        for idx, td in enumerate(tds):
+            full_file_path = file_loc_text + '/' + file_name_text + '_' + str(idx) + '.mp4'
+            print(full_file_path)
+            if os.path.isfile(full_file_path):
+                raise SameFileExists()
+            try:
+                url_media = td.text
+                urllib.request.urlretrieve(url_media, full_file_path)
+                downloaded = True
+            except Exception:
+                continue
+
+    return downloaded
+
+
+def download_video_3(file_name_text, file_loc_text, online_view_navi_response):
 
     if online_view_navi_response.status_code == 200:
         full_file_path = file_loc_text + '/' + file_name_text + '.mp4'
@@ -139,19 +169,26 @@ class VideoDownloaderWorker(QThread):
             online_view_form_json = online_view_form(self.lecture_weeks_text, self.item_id_text, self.jsession_id_text)
             online_view_navi_response = online_view_navi(online_view_form_json, self.jsession_id_text)
 
-            if download_video_1(file_name_text=self.file_name_text, file_loc_text=self.file_loc_text, content_id_text=online_view_navi_response.json()["path"].rsplit('/', 1)[-1]):
+            content_id_text = online_view_navi_response.json()["path"].rsplit('/', 1)[-1]
+
+            if download_video_1(file_name_text=self.file_name_text, file_loc_text=self.file_loc_text, content_id_text=content_id_text):
                 self.status.emit(SignalArgs(status=Status.READY))
                 return
 
-            if download_video_2(file_name_text=self.file_name_text, file_loc_text=self.file_loc_text, online_view_navi_response=online_view_navi_response):
+            if download_video_2(file_name_text=self.file_name_text, file_loc_text=self.file_loc_text, content_id_text=content_id_text):
                 self.status.emit(SignalArgs(status=Status.READY))
                 return
+
+            if download_video_3(file_name_text=self.file_name_text, file_loc_text=self.file_loc_text, online_view_navi_response=online_view_navi_response):
+                self.status.emit(SignalArgs(status=Status.READY))
+                return
+
+            self.status.emit(SignalArgs(status=Status.READY))
 
         except SameFileExists as e:
             self.status.emit(SignalArgs(status=Status.ERR, exception=e))
         except Exception:
             err = traceback.format_exc()
-            print(str(err))
             self.status.emit(SignalArgs(status=Status.ERR, exception=err))
 
 
