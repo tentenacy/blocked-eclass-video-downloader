@@ -32,6 +32,8 @@
 
 1. 다운로드할 과목의 이클래스 페이지로 진입
 
+![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/43bb921c-a4b6-4d6f-8ad2-3940a2ec54e2/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220603%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220603T152001Z&X-Amz-Expires=86400&X-Amz-Signature=715ea94c3fe79f957b81b7e01c1e9dd8831d5f3115f0af5ce34a794bf1b24f71&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+
 2. 개발자 도구(F12 or ctrl+shift+I or 직접(크롬 도구 더보기 > 개발자 도구)) > Application(안 보이면 우측 '>>' 클릭) > Storage > Cookies 하위 항목 선택 후 JSESSIONID 확인
 
     - JSESSIONID는 한 번 설정해놓으면 로그아웃되지 않는 한, 바꿀 필요 없음
