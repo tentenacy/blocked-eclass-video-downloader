@@ -40,7 +40,7 @@
 
 ![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/904ef682-bd1f-4c98-9d3c-3a51bc667b89/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T193148Z&X-Amz-Expires=86400&X-Amz-Signature=2568a34f991ced8c2e6d10f1b2d78353eb3ca86d4d3ea44e476299fe33fc889d&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
-2-1(선택). 개발자 도구를 켜고, 학습하기 클릭. 개발자 도구 > Network > Filter > online_view_navi.acl 입력 후 Payload에서 item_id 확인.
+2-1(선택). 개발자 도구를 켜고, 학습하기 클릭. 개발자 도구 > Network > Filter > acl 입력 후 Payload에서 item_id 확인.
 
    (Network 화면이 안 보일 시 ctrl+R)
 
