@@ -44,12 +44,10 @@
 
    (Network 화면이 안 보일 시 ctrl+R)
 
-   ![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c9208553-47a2-41eb-952b-bdb27824a0a8/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T192911Z&X-Amz-Expires=86400&X-Amz-Signature=e04c79f3c11ab0cd9ebd8a0bb94dfba6848fddeb611cd077ffead84887bac4b3&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+   ![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a369b343-eef3-4351-a07b-b643227c37e6/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220603%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220603T152641Z&X-Amz-Expires=86400&X-Amz-Signature=1d5a67ad9f224d8bc8434cecaebb2986c66211e7074f910bce9e2a451d8f3435&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
 
 4. 프로그램에 파일 이름, 저장 위치, lecture_weeks, item_id(선택), JSESSIONID를 입력하고 다운로드
-
-![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/02588ae2-4e5d-40c7-8423-884a640868ff/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T192929Z&X-Amz-Expires=86400&X-Amz-Signature=a5f8a7e8365fa7b36b843095dd6a6f1c39ae34f0c295eecd9a59c4e13490f678&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject))
 
 ## 유의사항
 
