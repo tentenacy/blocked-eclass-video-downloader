@@ -253,10 +253,6 @@ class MyApp(QMainWindow, form_class):
             QMessageBox(self).critical(self, '다운로드 할 수 없음 ', 'lecture_weeks를 입력해주세요.')
             return
 
-        if item_id_text == '':
-            QMessageBox(self).critical(self, '다운로드 할 수 없음 ', 'item_id를 입력해주세요.')
-            return
-
         if jsession_id_text == '':
             QMessageBox(self).critical(self, '다운로드 할 수 없음 ', 'JSESSIONID를 입력해주세요.')
             return
