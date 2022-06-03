@@ -14,7 +14,7 @@
 - 저장 위치(필수)
     - 다운로드할 파일의 저장 위치입니다.
 - lecture_weeks(필수)
-    - 강의 순번입니다. 현재 수강하는 과목 중에서 강의 순번이 중복되거나 할 수 없습니다.
+    - 강의 순번입니다.
     - **예를 들어, 1주차(아래 사진에서는 2주차) 강의가 4개이고, 2주차(아래 사진에서는 3주차) 강의가 4개, ..., 이런 식이면 1주차 강의에서 첫 번째 동영상의 lecture_weeks는 1이고, 2주차 강의에서 두 번째 동영상의 lecture_weeks는 6입니다.**
 
 ![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/99e43723-56bf-43f9-8e51-69ea5bd26b77/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220603%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220603T151445Z&X-Amz-Expires=86400&X-Amz-Signature=1481206a2c5f72791f71d5d96c622ef0abc65225d0208e77aa2e8313b6dcf97d&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
