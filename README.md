@@ -31,6 +31,14 @@
 
 0. exe 파일 실행 시 같은 폴더에 ui 파일이 위치해야 함
 
+	a. (참고) exe 파일 실행 시 에러가 나는 경우 `main.py`  직접 실행
+
+		i. python 3.9.7 버전 다운로드
+    
+		ii. pip install requests lxml bs4 PyQt5
+    
+		iii. python main.py
+
 1. 다운로드할 과목의 이클래스 페이지로 진입
 
 ![Untitled](https://user-images.githubusercontent.com/76826021/172287962-0b1e280e-1a5d-4bb2-bb3a-6950730cd082.png)
