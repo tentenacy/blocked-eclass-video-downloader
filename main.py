@@ -113,7 +113,7 @@ def online_view_form(lecture_weeks_text, item_id_text, jsession_id_text):
     cookies = {'JSESSIONID': jsession_id_text, '_language_': 'ko'}
 
     response = requests.post('http://eclass.tukorea.ac.kr/ilos/st/course/online_view_form.acl',
-                             data={'lecture_weeks': lecture_weeks_text, 'item_id': item_id_text},
+                             params={'lecture_weeks': lecture_weeks_text, 'item_id': item_id_text},
                              cookies=cookies)
 
     matched = re.search(r'cv\.load(\((.*?)\));', response.text, re.S)
@@ -136,7 +136,7 @@ def online_view_navi(online_view_form_json, jsession_id_text):
     cookies = {'JSESSIONID': jsession_id_text, '_language_': 'ko'}
 
     return requests.post('http://eclass.tukorea.ac.kr/ilos/st/course/online_view_navi.acl',
-                             data={
+                             params={
                                  'navi': online_view_form_json["navi"],
                                  'item_id': online_view_form_json["item_id"],
                                  'content_id': online_view_form_json["content_id"],
