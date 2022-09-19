@@ -19,6 +19,7 @@
 
 ![Untitled 1](https://user-images.githubusercontent.com/76826021/172287873-37aaac86-088e-4391-a882-1b9708840048.png)
 
+    - (참고) 같은 주차에서 lecture_weeks가 오름차순으로 정렬되어 있지 않은 경우도 있습니다. 예를 들어, 2주차 강의의 1, 2번째 동영상의 lecture_weeks가 5, 6이 아니고, 6, 5인 경우도 있습니다.
 
 - item_id(선택)
     - 하나의 강의에 여러 강의(Table of contents)가 있는 경우 강의를 구분하는 데 사용되는 식별자입니다.
